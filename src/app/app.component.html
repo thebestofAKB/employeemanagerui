@@ -8,7 +8,7 @@
         <a class="navbar-brand" href="#">Employee manager</a>
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Add Employee</a>
+            <a (click)="onOpenModal(null, 'add')" class="nav-link active" aria-current="page" href="#">Add Employee</a>
           </li>
         </ul>
         <form class="d-flex" role="search">
@@ -27,27 +27,27 @@
 </main>
 
 <!-- End Navigation -->
-<div class="container">
+<div class="container" id="main-container">
     <div class="row">
         <div *ngFor="let employee of employees" class="col-md-6 col-xl-3">
             <div class="card m-b-30">
                 <div class="card-body row">
                     <div class="col-6">
-                        <a href=""><img src="{{employee.imageUrl}}" alt="" class="img-fluid rounded-circle w-60"></a>
+                        <a href=""><img src="{{ employee?.imageUrl }}" alt="" class="img-fluid rounded-circle w-60"></a>
                     </div>
                     <div class="col-6 card-title align-self-center mb-0">
-                        <h5>{{employee.name}}</h5>
-                        <p class="m-0">{{employee.jobTitle}}</p>
+                        <h5>{{ employee?.name }}</h5>
+                        <p class="m-0">{{ employee?.jobTitle }}</p>
                     </div>
                 </div>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><i class="fa fa-envelope float-right"></i> : <a href="#">{{employee.email}}</a></li>
-                    <li class="list-group-item"><i class="fa fa-phone float-right"></i> : {{employee.phone}}</li>
+                    <li class="list-group-item"><i class="fa fa-envelope float-right"></i> : <a href="#">{{ employee?.email }}</a></li>
+                    <li class="list-group-item"><i class="fa fa-phone float-right"></i> : {{ employee?.phone }}</li>
                 </ul>
                 <div class="card-body">
                     <div class="float-right btn-group btn-group-sm">
-                        <a href="#" class="btn btn-primary tooltips" data-placement="top" data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
-                        <a href="#" class="btn btn-secondary tooltips" data-placement="top" data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-times"></i></a>
+                        <a (click)="onOpenModal(employee, 'edit')" href="#" class="btn btn-primary tooltips" data-placement="top" data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
+                        <a (click)="onOpenModal(employee, 'delete')" href="#" class="btn btn-secondary tooltips" data-placement="top" data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-times"></i></a>
                     </div>
                     <!-- <ul class="social-links list-inline mb-0">
                         <li class="list-inline-item"><a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="" data-original-title="Facebook"><i class="fa fa-facebook-f"></i></a></li>
@@ -58,4 +58,31 @@
             </div>
         </div>
     </div>
+</div>
+
+<!-- Add Employee Modal -->
+<div class="modal fade" id="addEmployeeModal" tabindex="-1" aria-labelledby="addEmployeeModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addEmployeeModalLabel">Add Employee</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Notifications for no employees -->
+<div class="col-lg-12 col-md-12 col-xl-12">
+  <div class="alert alert-info" role="alert">
+    <h4 class="alert-heading">NO EMPLOYEES !</h4>
+    <p>No employees were found.</p>
+  </div>
 </div>
