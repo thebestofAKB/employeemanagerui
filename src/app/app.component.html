@@ -17,7 +17,7 @@
         </form>
       </div>
     </div>
-  </nav>
+</nav>
 
 <main role="main" class="container">
     <div class="jumbotron text-center">
@@ -29,7 +29,7 @@
 <!-- End Navigation -->
 <div class="container" id="main-container">
     <div class="row">
-        <div *ngFor="let employee of employees" class="col-md-6 col-xl-3">
+        <div *ngFor="let employee of employees" class="col-md-4 col-xl-3">
             <div class="card m-b-30">
                 <div class="card-body row">
                     <div class="col-6">
@@ -96,7 +96,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" id="add-employee-form" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary">Save changes</button>
+            <button [disabled]="addForm.invalid" type="submit" data-bs-dismiss="modal" class="btn btn-primary">Save changes</button>
           </div>
         </form>
       </div>
@@ -113,37 +113,38 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action="" method="post">
+        <form #editForm="ngForm">
           <div class="form-group">
             <label for="name" class="form-label">Name</label>
-            <input type="text" name="name" id="name" class="form-control" placeholder="Enter your name">
+            <input type="text" ngModel="{{ editEmployee?.name }}" name="name" id="name" class="form-control" placeholder="Enter your name">
           </div>
-
+          <input type="hidden" ngModel="{{ editEmployee?.id }}" name="id" id="id" class="form-control" placeholder="id" />
+          <input type="hidden" ngModel="{{ editEmployee?.employeeCode}}" name="employeeCode" id="employeeCode" class="form-control" placeholder="employeeCode" />
           <div class="form-group">
             <label for="email" class="form-label">E-mail Address</label>
-            <input type="email" name="email" id="email" class="form-control" placeholder="Enter your email">
+            <input type="email" ngModel="{{ editEmployee?.email }}" name="email" id="email" class="form-control" placeholder="Enter your email">
           </div>
 
           <div class="form-group">
             <label for="jobTitle" class="form-label">Job Title</label>
-            <input type="text" name="jobTitle" id="jobTitle" class="form-control" placeholder="Enter your jobTitle">
+            <input type="text" ngModel="{{ editEmployee?.jobTitle}}" name="jobTitle" id="jobTitle" class="form-control" placeholder="Enter your jobTitle">
           </div>
 
           <div class="form-group-sm">
             <label for="phone" class="form-label">Phone</label>
-            <input type="text" name="phone" id="phone" class="form-control" placeholder="Enter your phone">
+            <input type="text" ngModel="{{ editEmployee?.phone }}" name="phone" id="phone" class="form-control" placeholder="Enter your phone">
           </div>
 
           <div class="form-group">
             <label for="imageUrl" class="form-label">Image Url</label>
-            <input type="text" name="imageUrl" id="imageUrl" class="form-control" placeholder="Enter your imageUrl">
+            <input type="text" ngModel="{{ editEmployee?.imageUrl }}" name="imageUrl" id="imageUrl" class="form-control" placeholder="Enter your imageUrl">
           </div>
 
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-info">Save changes</button>
+        <button (click)="onUpdateEmployee(editForm.value)" data-bs-dismiss="modal" class="btn btn-info">Save changes</button>
       </div>
     </div>
   </div>
@@ -159,12 +160,12 @@
       </div>
       <div class="modal-body">
         <form action="" method="post">
-          <label class="form-label">Are you sure you want to delete employee ?</label>
+          <label class="form-label">Are you sure you want to delete employee {{deleteEmployee?.name}} ?</label>
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-        <button type="button" class="btn btn-danger">Yes</button>
+        <button (click)="onDeleteEmployee(deleteEmployee?.id)" type="button" class="btn btn-danger">Yes</button>
       </div>
     </div>
   </div>

@@ -10,7 +10,10 @@ import { EmployeeService } from './employee.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+
   public employees!: Employee[];
+  public editEmployee: Employee | any;
+  public deleteEmployee: Employee | any;
 
   public constructor(private employeeService: EmployeeService){}
 
@@ -31,15 +34,44 @@ export class AppComponent implements OnInit {
     );
   }
 
+  //Add Employee
   public onAddEmployee(addForm: NgForm): void {
     document.getElementById('add-employee-form')?.click();
     this.employeeService.addEmployee(addForm.value).subscribe(
       (response: Employee) => {
         console.log(response);
         this.getEmployees();
+        addForm.reset();
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
+        addForm.reset();
+      }
+    )
+  }
+
+  //Update Employee
+  public onUpdateEmployee(employee: Employee): void {
+    this.employeeService.addEmployee(employee).subscribe(
+      (response: Employee) => {
+        console.log(response);
+        this.getEmployees();
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    )
+  }
+
+  //Delete Employee
+  public onDeleteEmployee(employeeId: number): void {
+    this.employeeService.deleteEmployee(employeeId).subscribe(
+      (response: void) => {
+        console.log(response);
+        this.getEmployees();
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.message);
       }
     )
   }
@@ -56,10 +88,12 @@ export class AppComponent implements OnInit {
     }
 
     if (mode === 'edit'){
+      this.editEmployee = employee;
       button.setAttribute('data-bs-target', '#updateEmployeeModal');
     }
 
     if (mode === 'delete'){
+      this.deleteEmployee = employee;
       button.setAttribute('data-bs-target', '#deleteEmployeeModal');
     }
 
