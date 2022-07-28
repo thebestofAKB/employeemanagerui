@@ -159,7 +159,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action="" method="post">
+        <form #deleteForm="ngForm">
           <label class="form-label">Are you sure you want to delete employee {{deleteEmployee?.name}} ?</label>
         </form>
       </div>
@@ -172,7 +172,7 @@
 </div>
 
 <!-- Notifications for no employees -->
-<div class="col-lg-12 col-md-12 col-xl-12">
+<div *ngIf="employees?.length == 0" class="col-lg-12 col-md-12 col-xl-12">
   <div class="alert alert-info" role="alert">
     <h4 class="alert-heading">NO EMPLOYEES !</h4>
     <p>No employees were found.</p>
