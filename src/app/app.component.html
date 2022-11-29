@@ -12,8 +12,9 @@
           </li>
         </ul>
         <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search employees..." aria-label="Search">
-          <button class="btn btn-outline-primary" type="submit">Search</button>
+          <input (ngModelChange)="searchEmployee(key.value)" #key="ngModel" ngModel name="key"
+          class="form-control me-2" type="search" placeholder="Search employees..." aria-label="Search">
+          <!-- <button class="btn btn-outline-primary" type="submit">Search</button> -->
         </form>
       </div>
     </div>
@@ -159,13 +160,11 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form #deleteForm="ngForm">
           <label class="form-label">Are you sure you want to delete employee {{deleteEmployee?.name}} ?</label>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-        <button (click)="onDeleteEmployee(deleteEmployee?.id)" type="button" class="btn btn-danger">Yes</button>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+            <button (click)="onDeleteEmployee(deleteEmployee?.id)" type="button" class="btn btn-danger">Yes</button>
+          </div>
       </div>
     </div>
   </div>
